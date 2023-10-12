@@ -25,6 +25,9 @@ verb 3
 {% if openvpn_tun_mtu %}
 tun-mtu {{ openvpn_tun_mtu }}
 {% endif %}
+{% if openvpn_link_mtu %}
+link-mtu {{ openvpn_link_mtu }}
+{% endif %}
 
 {% if openvpn_use_ldap %}
 auth-user-pass
