@@ -1,5 +1,5 @@
 ---
-- name: Create openvpn ovpn file directory
+- name: Create openvpn client config file directory
   file:
     path: "{{ openvpn_ovpn_dir }}"
     state: directory
@@ -33,10 +33,9 @@
   when: "(openvpn_ovpn_dir + '/' + item + '-' + inventory_hostname + '.ovpn') not in (__openvpn_client_cert_find['files'] | map(attribute='path') | flatten)"
   include_tasks: client_keys-keygen.yml
 
-- name: Fetch client config
-  fetch:
-    src: "{{ openvpn_ovpn_dir }}/{{ item }}-{{ inventory_hostname }}.ovpn"
-    dest: "{{ openvpn_fetch_client_configs_dir }}/{{ item }}-{{ inventory_hostname }}.ovpn"
-    flat: true
+- name: Fetch client configs
+  ansible.posix.synchronize:
+    mode: pull
+    src: "{{ openvpn_ovpn_dir }}/*.ovpn"
+    dest: "{{ openvpn_fetch_client_configs_dir }}"
   when: openvpn_fetch_client_configs
-  loop: "{{ clients }}"

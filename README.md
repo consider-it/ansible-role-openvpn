@@ -39,19 +39,19 @@ Major community contributions:
 # Role Variables
 ## Role options
 These options change how the role works. This is a catch-all group, specific groups are broken out below.
-| Variable                     | Type    | Choices     | Default           | Comment                                                                       |
-|------------------------------|---------|-------------|-------------------|-------------------------------------------------------------------------------|
-| clients                      | list    |             | []                | List of clients to add to OpenVPN                                             |
-| openvpn_base_dir             | string  |             | /etc/openvpn      | Path where your OpenVPN config will be stored                                 |
-| openvpn_client_config_no_log | boolean | true, false | true              | Prevent client configuration files to be logged to stdout by Ansible          |
-| openvpn_key_dir              | string  |             | /etc/openvpn/keys | Path where your server private keys and CA will be stored                     |
-| openvpn_ovpn_dir             | string  |             | /etc/openvpn      | Path where your client configurations will be stored                          |
-| openvpn_revoke_these_certs   | list    |             | []                | List of client certificates to revoke.                                        |
-| openvpn_selinux_module       | string  |             | my-openvpn-server | Set the SELinux module name                                                   |
-| openvpn_service_name         | string  |             | openvpn           | Name of the service. Used by systemctl to start the service                   |
-| openvpn_sync_certs           | boolean | true, false | false             | Revoke certificates not explicitly defined in 'clients'                       |
-| openvpn_uninstall            | boolean | true, false | false             | Set to true to uninstall the OpenVPN service                                  |
-| openvpn_use_ldap             | boolean | true, false | false             | Active LDAP backend for authentication. Client certificate not needed anymore |
+| Variable                     | Type    | Choices     | Default              | Comment                                                                       |
+|------------------------------|---------|-------------|----------------------|-------------------------------------------------------------------------------|
+| clients                      | list    |             | []                   | List of clients to add to OpenVPN                                             |
+| openvpn_base_dir             | string  |             | /etc/openvpn         | Path where your OpenVPN config will be stored                                 |
+| openvpn_client_config_no_log | boolean | true, false | true                 | Prevent client configuration files to be logged to stdout by Ansible          |
+| openvpn_key_dir              | string  |             | /etc/openvpn/keys    | Path where your server private keys and CA will be stored                     |
+| openvpn_ovpn_dir             | string  |             | /etc/openvpn/configs | Path where your client configurations will be stored                          |
+| openvpn_revoke_these_certs   | list    |             | []                   | List of client certificates to revoke.                                        |
+| openvpn_selinux_module       | string  |             | my-openvpn-server    | Set the SELinux module name                                                   |
+| openvpn_service_name         | string  |             | openvpn              | Name of the service. Used by systemctl to start the service                   |
+| openvpn_sync_certs           | boolean | true, false | false                | Revoke certificates not explicitly defined in 'clients'                       |
+| openvpn_uninstall            | boolean | true, false | false                | Set to true to uninstall the OpenVPN service                                  |
+| openvpn_use_ldap             | boolean | true, false | false                | Active LDAP backend for authentication. Client certificate not needed anymore |
 ### Config fetching
 Change these options if you need to adjust how the configs are download to your local system
 | Variable                            | Type    | Choices     | Default      | Comment                                                                                                                                   |
