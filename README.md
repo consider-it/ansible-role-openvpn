@@ -39,26 +39,25 @@ Major community contributions:
 # Role Variables
 ## Role options
 These options change how the role works. This is a catch-all group, specific groups are broken out below.
-| Variable                     | Type    | Choices     | Default           | Comment                                                                       |
-|------------------------------|---------|-------------|-------------------|-------------------------------------------------------------------------------|
-| clients                      | list    |             | []                | List of clients to add to OpenVPN                                             |
-| openvpn_base_dir             | string  |             | /etc/openvpn      | Path where your OpenVPN config will be stored                                 |
-| openvpn_client_config_no_log | boolean | true, false | true              | Prevent client configuration files to be logged to stdout by Ansible          |
-| openvpn_key_dir              | string  |             | /etc/openvpn/keys | Path where your server private keys and CA will be stored                     |
-| openvpn_ovpn_dir             | string  |             | /etc/openvpn      | Path where your client configurations will be stored                          |
-| openvpn_revoke_these_certs   | list    |             | []                | List of client certificates to revoke.                                        |
-| openvpn_selinux_module       | string  |             | my-openvpn-server | Set the SELinux module name                                                   |
-| openvpn_service_name         | string  |             | openvpn           | Name of the service. Used by systemctl to start the service                   |
-| openvpn_sync_certs           | boolean | true, false | false             | Revoke certificates not explicitly defined in 'clients'                       |
-| openvpn_uninstall            | boolean | true, false | false             | Set to true to uninstall the OpenVPN service                                  |
-| openvpn_use_ldap             | boolean | true, false | false             | Active LDAP backend for authentication. Client certificate not needed anymore |
+| Variable                     | Type    | Choices     | Default              | Comment                                                                       |
+|------------------------------|---------|-------------|----------------------|-------------------------------------------------------------------------------|
+| clients                      | list    |             | []                   | List of clients to add to OpenVPN                                             |
+| openvpn_base_dir             | string  |             | /etc/openvpn         | Path where your OpenVPN config will be stored                                 |
+| openvpn_client_config_no_log | boolean | true, false | true                 | Prevent client configuration files to be logged to stdout by Ansible          |
+| openvpn_key_dir              | string  |             | /etc/openvpn/keys    | Path where your server private keys and CA will be stored                     |
+| openvpn_ovpn_dir             | string  |             | /etc/openvpn/configs | Path where your client configurations will be stored                          |
+| openvpn_revoke_these_certs   | list    |             | []                   | List of client certificates to revoke.                                        |
+| openvpn_selinux_module       | string  |             | my-openvpn-server    | Set the SELinux module name                                                   |
+| openvpn_service_name         | string  |             | openvpn              | Name of the service. Used by systemctl to start the service                   |
+| openvpn_sync_certs           | boolean | true, false | false                | Revoke certificates not explicitly defined in 'clients'                       |
+| openvpn_uninstall            | boolean | true, false | false                | Set to true to uninstall the OpenVPN service                                  |
+| openvpn_use_ldap             | boolean | true, false | false                | Active LDAP backend for authentication. Client certificate not needed anymore |
 ### Config fetching
 Change these options if you need to adjust how the configs are download to your local system
 | Variable                            | Type    | Choices     | Default      | Comment                                                                                                                                   |
 |-------------------------------------|---------|-------------|--------------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | openvpn_fetch_client_configs        | boolean | true, false | true         | Download generated client configurations to the local system                                                                              |
 | openvpn_fetch_client_configs_dir    | string  |             | /tmp/ansible | If openvpn_fetch_client_configs is true, the local directory to download the client config files into                                     |
-| openvpn_fetch_client_configs_suffix | string  |             | ""           | If openvpn_fetch_client_configs is true, the suffix to append to the downloaded client config files before the trailing `.ovpn` extension |
 
 ### Firewall
 Change these options if you need to force a particular firewall or change how the playbook interacts with the firewall.
@@ -121,10 +120,10 @@ These options change how OpenVPN itself works.
 | openvpn_management_bind            | string  |             | /var/run/openvpn/management unix                 | The interface to bind on for the management interface. Can be unix or TCP socket.                                                                                             |
 | openvpn_management_client_user     | string  |             | root                                             | Use this user when using a Unix socket for management interface.                                                                                                              |
 | openvpn_push                       | list    |             | empty                                            | Set here a list of string that will be inserted into the config file as `push ""`. E.g `- route 10.20.30.0 255.255.255.0` will generate push "route 10.20.30.0 255.255.255.0" |
-| openvpn_script_client_connect      | string  |             | `unset`                                          | Path to your openvpn client-connect script                                                                                                                                    |
-| openvpn_script_client_disconnect   | string  |             | `unset`                                          | Path to your openvpn client-disconnect script                                                                                                                                 |
-| openvpn_script_down                | string  |             | `unset`                                          | Path to your openvpn down script                                                                                                                                              |
-| openvpn_script_up                  | string  |             | `unset`                                          | Path to your openvpn up script                                                                                                                                                |
+| openvpn_script_client_connect      | string  |             | `unset`                                          | Path to your openvpn client-connect script (template)                                                                                                                         |
+| openvpn_script_client_disconnect   | string  |             | `unset`                                          | Path to your openvpn client-disconnect script (template)                                                                                                                      |
+| openvpn_script_down                | string  |             | `unset`                                          | Path to your openvpn down script (template)                                                                                                                                   |
+| openvpn_script_up                  | string  |             | `unset`                                          | Path to your openvpn up script (template)                                                                                                                                     |
 | openvpn_service_group              | string  |             | nogroup                                          | Set the openvpn service group.                                                                                                                                                |
 | openvpn_service_user               | string  |             | nobody                                           | Set the openvpn service user.                                                                                                                                                 |
 | openvpn_status_version             | int     | 1, 2, 3     | 1                                                | Define the formatting of the openvpn-status.log file where are listed current client connection                                                                               |
